@@ -1,0 +1,83 @@
+{
+	"textures": [
+		{
+			"image": "idle.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 113,
+				"h": 81
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "aokiji_0-0.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 37,
+						"h": 79
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 37,
+						"h": 79
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 37,
+						"h": 79
+					}
+				},
+				{
+					"filename": "aokiji_0-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 37,
+						"h": 79
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 35,
+						"h": 79
+					},
+					"frame": {
+						"x": 40,
+						"y": 1,
+						"w": 35,
+						"h": 79
+					}
+				},
+				{
+					"filename": "aokiji_0-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 37,
+						"h": 79
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 35,
+						"h": 79
+					},
+					"frame": {
+						"x": 77,
+						"y": 1,
+						"w": 35,
+						"h": 79
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:a3358f1095c1ad82fd8270b9f02227f9:0d372a535c3d1e36e113d2fa3d2753ad:0887b40df8d6cdab45850b165dda8141$"
+	}
+}
