@@ -19,6 +19,7 @@ const game = new Phaser.Game({
       debug: true,
     },
   },
+  banner: false,
 });
 
 game.scene.add(PreloadScene.key, PreloadScene);
