@@ -1,14 +1,12 @@
 import * as Phaser from 'phaser';
 import { battleBackground1 } from '../data/asset-keys';
+import { battleSceneKey, homeSceneKey } from '../data/scene-keys';
 import { Character } from '../actor/Character';
-import { HomeScene } from './HomeScene';
 
 export class BattleScene extends Phaser.Scene {
   constructor() {
-    super({ key: BattleScene.key });
+    super({ key: battleSceneKey });
   }
-
-  public static key = 'BattleScene';
 
   private players: Character[] = [];
   private enemies: Character[] = [];
@@ -43,7 +41,7 @@ export class BattleScene extends Phaser.Scene {
       color: '#000000',
     });
     this.input.keyboard.on('keydown-DELETE', () => {
-      this.scene.start(HomeScene.key);
+      this.scene.start(homeSceneKey);
     });
   }
 
@@ -125,7 +123,7 @@ export class BattleScene extends Phaser.Scene {
     buttonText.setOrigin(0.5);
     buttonText.setDepth(2);
     Phaser.Display.Align.In.Center(buttonText, button);
-    button.setInteractive();
+    button.setInteractive({ cursor: 'pointer' });
     button.on('pointerdown', () => {
       this.changeSpeedMultiplier(buttonText);
     });

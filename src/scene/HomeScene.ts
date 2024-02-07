@@ -1,12 +1,10 @@
 import * as Phaser from 'phaser';
-import { BattleScene } from './BattleScene';
+import { battleSceneKey, homeSceneKey } from '../data/scene-keys';
 
 export class HomeScene extends Phaser.Scene {
   constructor() {
-    super({ key: HomeScene.key });
+    super({ key: homeSceneKey });
   }
-
-  public static key = 'HomeScene';
 
   create(): void {
     this.setBackgroundColor();
@@ -23,12 +21,21 @@ export class HomeScene extends Phaser.Scene {
       color: '#000000',
     });
     this.add
-      .text(100, 200, 'Próxima Cena', { backgroundColor: '#00ff00', color: '#000000' })
-      .setInteractive()
-      .on('pointerdown', () => this.startNextScene());
+      .text(100, 200, 'Próxima Cena', {
+        backgroundColor: '#00ff00',
+        color: '#000000',
+        padding: {
+          left: 10,
+          right: 10,
+          top: 10,
+          bottom: 10,
+        },
+      })
+      .setInteractive({ cursor: 'pointer' })
+      .on('pointerdown', () => this.goToBattleScene());
   }
 
-  private startNextScene(): void {
-    this.scene.start(BattleScene.key);
+  private goToBattleScene(): void {
+    this.scene.start(battleSceneKey);
   }
 }

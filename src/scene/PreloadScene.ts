@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { aokijiIdle, battleBackground1, pirateIdle } from '../data/asset-keys';
-import { HomeScene } from './HomeScene';
+import { homeSceneKey, preloadSceneKey } from '../data/scene-keys';
 
 export class PreloadScene extends Phaser.Scene {
   private progressBar: Phaser.GameObjects.Graphics;
@@ -10,10 +10,8 @@ export class PreloadScene extends Phaser.Scene {
   private assetText: Phaser.GameObjects.Text;
 
   constructor() {
-    super({ key: PreloadScene.key });
+    super({ key: preloadSceneKey });
   }
-
-  public static key = 'PreloadScene';
 
   preload(): void {
     this.createProgressBar();
@@ -111,7 +109,7 @@ export class PreloadScene extends Phaser.Scene {
     this.loadingText.destroy();
     this.percentText.destroy();
     this.assetText.destroy();
-    this.scene.start(HomeScene.key);
+    this.scene.start(homeSceneKey);
   }
 
   private loadAssets(): void {

@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser';
 import { BattleScene } from './scene/BattleScene';
+import { battleSceneKey, homeSceneKey, preloadSceneKey } from './data/scene-keys';
 import { HomeScene } from './scene/HomeScene';
 import { PreloadScene } from './scene/PreloadScene';
 
@@ -20,9 +21,12 @@ const game = new Phaser.Game({
     },
   },
   banner: false,
+  audio: {
+    disableWebAudio: true,
+  },
 });
 
-game.scene.add(PreloadScene.key, PreloadScene);
-game.scene.add(HomeScene.key, HomeScene);
-game.scene.add(BattleScene.key, BattleScene);
-game.scene.start(PreloadScene.key);
+game.scene.add(preloadSceneKey, PreloadScene);
+game.scene.add(homeSceneKey, HomeScene);
+game.scene.add(battleSceneKey, BattleScene);
+game.scene.start(preloadSceneKey);
