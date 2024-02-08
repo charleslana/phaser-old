@@ -40,7 +40,8 @@ export class BattleScene extends Phaser.Scene {
       backgroundColor: '#ffffff',
       color: '#000000',
     });
-    this.input.keyboard.on('keydown-DELETE', () => {
+    const keyDelete = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DELETE);
+    keyDelete.on(Phaser.Input.Keyboard.Events.DOWN, () => {
       this.scene.start(homeSceneKey);
     });
   }
@@ -72,7 +73,8 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private createMovePlayer(): void {
-    this.input.keyboard.on('keydown-A', () => {
+    const keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    keyA.on(Phaser.Input.Keyboard.Events.DOWN, () => {
       this.moveToEnemy();
     });
   }
@@ -124,7 +126,7 @@ export class BattleScene extends Phaser.Scene {
     buttonText.setDepth(2);
     Phaser.Display.Align.In.Center(buttonText, button);
     button.setInteractive({ cursor: 'pointer' });
-    button.on('pointerdown', () => {
+    button.on(Phaser.Input.Events.POINTER_DOWN, () => {
       this.changeSpeedMultiplier(buttonText);
     });
   }

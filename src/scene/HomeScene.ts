@@ -32,7 +32,7 @@ export class HomeScene extends Phaser.Scene {
         },
       })
       .setInteractive({ cursor: 'pointer' })
-      .on('pointerdown', () => this.goToBattleScene());
+      .on(Phaser.Input.Events.POINTER_DOWN, () => this.goToBattleScene());
   }
 
   private goToBattleScene(): void {

@@ -83,9 +83,9 @@ export class PreloadScene extends Phaser.Scene {
   }
 
   private setupLoadEvents(): void {
-    this.load.on('progress', this.handleProgressEvent, this);
-    this.load.on('load', this.handleLoadEvent, this);
-    this.load.on('complete', this.handleCompleteEvent, this);
+    this.load.on(Phaser.Loader.Events.PROGRESS, this.handleProgressEvent, this);
+    this.load.on(Phaser.Loader.Events.FILE_LOAD, this.handleLoadEvent, this);
+    this.load.on(Phaser.Loader.Events.COMPLETE, this.handleCompleteEvent, this);
   }
 
   private handleProgressEvent(value: number): void {
