@@ -1,83 +1,82 @@
 {
-	"textures": [
-		{
-			"image": "idle.png",
-			"format": "RGBA8888",
-			"size": {
-				"w": 114,
-				"h": 46
-			},
-			"scale": 1,
-			"frames": [
-				{
-					"filename": "1.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 36,
-						"h": 44
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 36,
-						"h": 44
-					},
-					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 36,
-						"h": 44
-					}
-				},
-				{
-					"filename": "2.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 36,
-						"h": 44
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 36,
-						"h": 44
-					},
-					"frame": {
-						"x": 39,
-						"y": 1,
-						"w": 36,
-						"h": 44
-					}
-				},
-				{
-					"filename": "3.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 36,
-						"h": 44
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 2,
-						"w": 36,
-						"h": 42
-					},
-					"frame": {
-						"x": 77,
-						"y": 1,
-						"w": 36,
-						"h": 42
-					}
-				}
-			]
-		}
-	],
-	"meta": {
-		"app": "https://www.codeandweb.com/texturepacker",
-		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:1103b064e79b07b164e29d58a60d2779:8d3e65403f53a5bdbb9c1b6272da15bf:585717d7804995c87573698b70e44cb4$"
-	}
+  "textures": [
+    {
+      "image": "idle",
+      "format": "RGBA8888",
+      "size": {
+        "w": 38,
+        "h": 134
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "1.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 36,
+            "h": 44
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 36,
+            "h": 44
+          },
+          "frame": {
+            "x": 1,
+            "y": 1,
+            "w": 36,
+            "h": 44
+          }
+        },
+        {
+          "filename": "2.png",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 36,
+            "h": 44
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 1,
+            "w": 36,
+            "h": 43
+          },
+          "frame": {
+            "x": 1,
+            "y": 47,
+            "w": 36,
+            "h": 43
+          }
+        },
+        {
+          "filename": "3.png",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 36,
+            "h": 44
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 3,
+            "w": 36,
+            "h": 41
+          },
+          "frame": {
+            "x": 1,
+            "y": 92,
+            "w": 36,
+            "h": 41
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7"
+  }
 }
