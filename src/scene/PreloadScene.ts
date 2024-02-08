@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { aokijiIdle, battleBackground1, pirateIdle } from '../data/asset-keys';
+import { aokijiIdle, aokijiRun, battleBackground1, pirateIdle } from '../data/asset-keys';
 import { homeSceneKey, preloadSceneKey } from '../data/scene-keys';
 
 export class PreloadScene extends Phaser.Scene {
@@ -118,6 +118,11 @@ export class PreloadScene extends Phaser.Scene {
       aokijiIdle,
       './assets/characters/Aokiji/idle.png',
       './assets/characters/Aokiji/idle.json'
+    );
+    this.load.atlas(
+      aokijiRun,
+      './assets/characters/Aokiji/run.png',
+      './assets/characters/Aokiji/run.json'
     );
     this.load.atlas(
       pirateIdle,

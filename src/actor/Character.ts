@@ -1,28 +1,26 @@
 import * as Phaser from 'phaser';
-import { aokijiIdle } from '../data/asset-keys';
 import { getCharacterAnimation } from '../utils/character-utils';
 import { IAnimation } from '../interface/IAnimation';
 import { IBattleCharacter } from '../interface/IBattleCharacter';
+import { ICharacterAnimation } from '../interface/ICharacterAnimation';
 
 export class Character extends Phaser.Physics.Arcade.Sprite {
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    super(scene, x, y, aokijiIdle);
+    super(scene, x, y, null);
   }
 
   public sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   public slot: number;
 
+  private characterAnimation: ICharacterAnimation;
+
   public createCharacter(battleCharacter: IBattleCharacter): void {
-    const characterAnimation = getCharacterAnimation(battleCharacter.characterId);
+    this.characterAnimation = getCharacterAnimation(battleCharacter.characterId);
     this.createAnimations(battleCharacter.characterId);
-    this.sprite = this.scene.physics.add.sprite(this.x, this.y, characterAnimation.idle.key);
-    this.sprite.setCollideWorldBounds(true);
-    this.sprite.setScale(characterAnimation.scaleX);
-    this.sprite.setOrigin(0.5, 1);
-    this.sprite.setFlipX(battleCharacter.isFlip);
-    this.sprite.setDepth(1);
+    this.sprite = this.scene.physics.add.sprite(this.x, this.y, this.characterAnimation.idle.key);
+    this.setupSprite(battleCharacter.isFlip);
     this.slot = battleCharacter.slot;
-    this.sprite.anims.play(characterAnimation.idle.key, true);
+    this.sprite.anims.play(this.characterAnimation.idle.key, true);
   }
 
   public updateAnimationSpeed(newSpeed: number): void {
@@ -33,8 +31,36 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
+  public changeIdleAnimation(): void {
+    this.sprite.anims.play(this.characterAnimation.idle.key);
+    this.setupSprite();
+  }
+
+  public changeRunAnimation(): void {
+    this.sprite.anims.play(this.characterAnimation.run.key);
+    this.setupSprite();
+  }
+
+  private setupSprite(isFlip = false): void {
+    this.sprite.setCollideWorldBounds(true);
+    this.sprite.setScale(this.characterAnimation.scaleX);
+    if (isFlip) {
+      this.sprite.setOrigin(0, 1);
+    } else {
+      this.sprite.setOrigin(1, 1);
+    }
+    this.sprite.setFlipX(isFlip);
+    this.sprite.setDepth(1);
+    this.sprite.body.setSize(this.sprite.width, this.sprite.height);
+  }
+
   private createAnimations(characterId: number): void {
     const characterAnimation = getCharacterAnimation(characterId);
+    this.createIdleAnimation(characterAnimation);
+    this.createRunAnimation(characterAnimation);
+  }
+
+  private createIdleAnimation(characterAnimation: ICharacterAnimation): void {
     if (!this.scene.anims.exists(characterAnimation.idle.key)) {
       const idle = this.scene.anims.create({
         key: characterAnimation.idle.key,
@@ -44,6 +70,19 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
         yoyo: characterAnimation.idle.yoyo,
       }) as IAnimation;
       idle.frameRateStart = characterAnimation.idle.frameRateStart;
+    }
+  }
+
+  private createRunAnimation(characterAnimation: ICharacterAnimation): void {
+    if (characterAnimation.run && !this.scene.anims.exists(characterAnimation.run.key)) {
+      const run = this.scene.anims.create({
+        key: characterAnimation.run.key,
+        frames: characterAnimation.run.frames,
+        frameRate: characterAnimation.run.frameRate,
+        repeat: characterAnimation.run.repeat,
+        yoyo: characterAnimation.run.yoyo,
+      }) as IAnimation;
+      run.frameRateStart = characterAnimation.run.frameRateStart;
     }
   }
 }

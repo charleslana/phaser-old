@@ -1,4 +1,4 @@
-import { aokijiIdle, pirateIdle } from './asset-keys';
+import { aokijiIdle, aokijiRun, pirateIdle } from './asset-keys';
 import { ICharacterAnimation } from '../interface/ICharacterAnimation';
 
 export const characterAokiji: ICharacterAnimation = {
@@ -14,6 +14,22 @@ export const characterAokiji: ICharacterAnimation = {
     frameRateStart: 7,
     repeat: -1,
     yoyo: true,
+  },
+  run: {
+    key: aokijiRun,
+    frames: [
+      { key: aokijiRun, frame: '1.png' },
+      { key: aokijiRun, frame: '2.png' },
+      { key: aokijiRun, frame: '3.png' },
+      { key: aokijiRun, frame: '4.png' },
+      { key: aokijiRun, frame: '5.png' },
+      { key: aokijiRun, frame: '6.png' },
+      { key: aokijiRun, frame: '7.png' },
+      { key: aokijiRun, frame: '8.png' },
+    ],
+    frameRate: 10,
+    frameRateStart: 10,
+    repeat: -1,
   },
 };
 

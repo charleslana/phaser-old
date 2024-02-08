@@ -40,9 +40,14 @@ export class BattleScene extends Phaser.Scene {
       backgroundColor: '#ffffff',
       color: '#000000',
     });
-    const keyDelete = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DELETE);
-    keyDelete.on(Phaser.Input.Keyboard.Events.DOWN, () => {
+    this.input.keyboard.on('keydown-DELETE', () => {
       this.scene.start(homeSceneKey);
+    });
+    this.input.keyboard.on('keydown-R', () => {
+      this.player.changeRunAnimation();
+    });
+    this.input.keyboard.on('keydown-I', () => {
+      this.player.changeIdleAnimation();
     });
   }
 
@@ -73,22 +78,25 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private createMovePlayer(): void {
-    const keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-    keyA.on(Phaser.Input.Keyboard.Events.DOWN, () => {
+    this.input.keyboard.on('keydown-A', () => {
       this.moveToEnemy();
     });
   }
 
   private moveToEnemy(): void {
     this.player.sprite.depth++;
-    const destinationX = this.enemy.x - this.enemy.width;
+    this.player.changeRunAnimation();
+    const destinationX = this.enemy.x;
     const tweenConfig: Phaser.Types.Tweens.TweenBuilderConfig = {
       targets: this.player.sprite,
       x: destinationX,
       y: this.enemy.y,
       duration: 500 / this.speedMultiplier,
       onComplete: () => {
+        this.player.changeIdleAnimation();
         this.time.delayedCall(1000 / this.speedMultiplier, () => {
+          this.player.changeRunAnimation();
+          this.player.sprite.setFlipX(true);
           this.playerReturnToStartPosition();
         });
       },
@@ -104,6 +112,8 @@ export class BattleScene extends Phaser.Scene {
       duration: 500 / this.speedMultiplier,
       onComplete: () => {
         this.player.sprite.depth--;
+        this.player.sprite.setFlipX(false);
+        this.player.changeIdleAnimation();
       },
     };
     this.tweens.add(tweenConfig);
@@ -162,7 +172,7 @@ export class BattleScene extends Phaser.Scene {
     slotHeight: number,
     slotPaddingY: number
   ): { startXFront: number; startXBack: number; startY: number } {
-    const offsetX = 80;
+    const offsetX = 150;
     const startXFront = offsetX + slotWidth / 2;
     const startXBack = offsetX + slotWidth / 2 + slotWidth + slotPaddingX + 40;
     const offsetY = 170;
@@ -188,7 +198,7 @@ export class BattleScene extends Phaser.Scene {
         y = startY + (i - 4) * (slotHeight + slotPaddingY);
       }
       const slot = this.add.rectangle(x, y, slotWidth, slotHeight, 0xffffff);
-      slot.setOrigin(0.5, 1);
+      slot.setOrigin(1, 1);
       slot.setStrokeStyle(2, 0x000000);
       slot.setAlpha(1);
       this.players.forEach(player => {
@@ -218,7 +228,7 @@ export class BattleScene extends Phaser.Scene {
         y = startY + (i - 4) * (slotHeight + slotPaddingY);
       }
       const slot = this.add.rectangle(x, y, slotWidth, slotHeight, 0xffffff);
-      slot.setOrigin(0.5, 1);
+      slot.setOrigin(0, 1);
       slot.setStrokeStyle(2, 0x000000);
       slot.setAlpha(1);
       this.enemies.forEach(enemy => {

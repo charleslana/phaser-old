@@ -12,4 +12,5 @@ interface AnimationFrame {
 export interface ICharacterAnimation {
   scaleX?: number;
   idle?: AnimationFrame;
+  run?: AnimationFrame;
 }
