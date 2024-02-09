@@ -87,6 +87,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private moveToEnemy(): void {
+    this.player.statusBar.hide();
     this.player.changeRunAnimation(this.speed);
     const destinationX = this.enemy.x + this.enemy.width * 2;
     const tweenConfig: Phaser.Types.Tweens.TweenBuilderConfig = {
@@ -99,6 +100,7 @@ export class BattleScene extends Phaser.Scene {
         this.player.sprite.setDepth(2);
         this.time.delayedCall(duration / this.speed, () => {
           this.enemy.blinkSprite(this.speed);
+          this.enemy.statusBar.updateHP(100, 200, this.speed);
           this.player.changeRunAnimation(this.speed);
           this.player.sprite.setFlipX(true);
           this.playerReturnToStartPosition();
@@ -118,6 +120,7 @@ export class BattleScene extends Phaser.Scene {
         this.player.sprite.depth--;
         this.player.sprite.setFlipX(false);
         this.player.changeIdleAnimation(this.speed);
+        this.player.statusBar.show();
       },
     };
     this.tweens.add(tweenConfig);
@@ -141,11 +144,11 @@ export class BattleScene extends Phaser.Scene {
     Phaser.Display.Align.In.Center(buttonText, button);
     button.setInteractive({ cursor: 'pointer' });
     button.on(Phaser.Input.Events.POINTER_DOWN, () => {
-      this.changeSpeedMultiplier(buttonText);
+      this.changeSpeed(buttonText);
     });
   }
 
-  private changeSpeedMultiplier(buttonText: Phaser.GameObjects.Text): void {
+  private changeSpeed(buttonText: Phaser.GameObjects.Text): void {
     this.speed += 0.5;
     if (this.speed > 2) {
       this.speed = 1;
@@ -209,6 +212,7 @@ export class BattleScene extends Phaser.Scene {
         if (i === player.slot) {
           player.setPosition(x, y);
           player.sprite.setPosition(x, y);
+          player.createStatusBar();
         }
       });
     }
@@ -239,6 +243,7 @@ export class BattleScene extends Phaser.Scene {
         if (i === enemy.slot) {
           enemy.setPosition(x, y);
           enemy.sprite.setPosition(x, y);
+          enemy.createStatusBar(true);
         }
       });
     }

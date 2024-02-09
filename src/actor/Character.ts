@@ -3,6 +3,7 @@ import { getCharacterAnimation } from '../utils/character-utils';
 import { IAnimation } from '../interface/IAnimation';
 import { IBattleCharacter } from '../interface/IBattleCharacter';
 import { ICharacterAnimation } from '../interface/ICharacterAnimation';
+import { StatusBar } from '../components/StatusBar';
 
 export class Character extends Phaser.Physics.Arcade.Sprite {
   constructor(scene: Phaser.Scene, x: number, y: number) {
@@ -11,6 +12,7 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 
   public sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   public slot: number;
+  public statusBar: StatusBar;
 
   private characterAnimation: ICharacterAnimation;
 
@@ -64,6 +66,11 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
         });
       },
     });
+  }
+
+  public createStatusBar(isFlip = false): void {
+    this.statusBar = new StatusBar(this.scene, this.sprite);
+    this.statusBar.createStatusBarContainer(isFlip);
   }
 
   private setupSprite(isFlip = false): void {
