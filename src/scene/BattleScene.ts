@@ -100,7 +100,7 @@ export class BattleScene extends Phaser.Scene {
         this.player.sprite.setDepth(2);
         this.time.delayedCall(duration / this.speed, () => {
           this.enemy.blinkSprite(this.speed);
-          this.enemy.statusBar.updateHP(100, 200, this.speed);
+          this.enemy.statusBar.updateHP(50, 200, this.speed);
           this.player.changeRunAnimation(this.speed);
           this.player.sprite.setFlipX(true);
           this.playerReturnToStartPosition();

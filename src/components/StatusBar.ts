@@ -49,6 +49,14 @@ export class StatusBar {
       duration:
         (500 / speed) * Math.abs(this.hpBar.bar.scaleX - clampedWidth / this.containerWidth),
       ease: Phaser.Math.Easing.Linear,
+      onComplete: () => {
+        const isLowHP = this.hpBar.value / maxHP <= 0.25;
+        if (isLowHP) {
+          this.hpBar.bar.clear();
+          this.hpBar.bar.fillStyle(0xff0000, 1);
+          this.hpBar.bar.fillRoundedRect(0, 0, this.containerWidth, 10, 5);
+        }
+      },
     });
   }
 
