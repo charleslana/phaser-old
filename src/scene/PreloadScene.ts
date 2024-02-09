@@ -1,6 +1,12 @@
 import * as Phaser from 'phaser';
-import { aokijiIdle, aokijiRun, battleBackground1, pirateIdle } from '../data/asset-keys';
 import { homeSceneKey, preloadSceneKey } from '../data/scene-keys';
+import {
+  aokijiAttackMelee,
+  aokijiIdle,
+  aokijiRun,
+  battleBackground1,
+  pirateIdle,
+} from '../data/asset-keys';
 
 export class PreloadScene extends Phaser.Scene {
   private progressBar: Phaser.GameObjects.Graphics;
@@ -123,6 +129,11 @@ export class PreloadScene extends Phaser.Scene {
       aokijiRun,
       './assets/characters/Aokiji/run.png',
       './assets/characters/Aokiji/run.json'
+    );
+    this.load.atlas(
+      aokijiAttackMelee,
+      './assets/characters/Aokiji/attack_melee.png',
+      './assets/characters/Aokiji/attack_melee.json'
     );
     this.load.atlas(
       pirateIdle,

@@ -31,14 +31,23 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  public changeIdleAnimation(): void {
+  public changeIdleAnimation(speed: number): void {
     this.sprite.anims.play(this.characterAnimation.idle.key);
     this.setupSprite();
+    this.updateAnimationSpeed(speed);
   }
 
-  public changeRunAnimation(): void {
+  public changeRunAnimation(speed: number): void {
     this.sprite.anims.play(this.characterAnimation.run.key);
     this.setupSprite();
+    this.updateAnimationSpeed(speed);
+  }
+
+  public changeAttackMeleeAnimation(speed: number): number {
+    this.sprite.anims.play(this.characterAnimation.attackMelee.key);
+    this.setupSprite();
+    this.updateAnimationSpeed(speed);
+    return this.sprite.anims.currentAnim.duration;
   }
 
   private setupSprite(isFlip = false): void {
@@ -58,6 +67,7 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
     const characterAnimation = getCharacterAnimation(characterId);
     this.createIdleAnimation(characterAnimation);
     this.createRunAnimation(characterAnimation);
+    this.createAttackMeleeAnimation(characterAnimation);
   }
 
   private createIdleAnimation(characterAnimation: ICharacterAnimation): void {
@@ -83,6 +93,22 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
         yoyo: characterAnimation.run.yoyo,
       }) as IAnimation;
       run.frameRateStart = characterAnimation.run.frameRateStart;
+    }
+  }
+
+  private createAttackMeleeAnimation(characterAnimation: ICharacterAnimation): void {
+    if (
+      characterAnimation.attackMelee &&
+      !this.scene.anims.exists(characterAnimation.attackMelee.key)
+    ) {
+      const attackMelee = this.scene.anims.create({
+        key: characterAnimation.attackMelee.key,
+        frames: characterAnimation.attackMelee.frames,
+        frameRate: characterAnimation.attackMelee.frameRate,
+        repeat: characterAnimation.attackMelee.repeat,
+        yoyo: characterAnimation.attackMelee.yoyo,
+      }) as IAnimation;
+      attackMelee.frameRateStart = characterAnimation.attackMelee.frameRateStart;
     }
   }
 }

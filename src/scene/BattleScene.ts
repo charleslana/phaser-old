@@ -43,11 +43,14 @@ export class BattleScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-DELETE', () => {
       this.scene.start(homeSceneKey);
     });
-    this.input.keyboard.on('keydown-R', () => {
-      this.player.changeRunAnimation();
+    this.input.keyboard.on('keydown-ONE', () => {
+      this.player.changeIdleAnimation(this.speedMultiplier);
     });
-    this.input.keyboard.on('keydown-I', () => {
-      this.player.changeIdleAnimation();
+    this.input.keyboard.on('keydown-TWO', () => {
+      this.player.changeRunAnimation(this.speedMultiplier);
+    });
+    this.input.keyboard.on('keydown-THREE', () => {
+      this.player.changeAttackMeleeAnimation(this.speedMultiplier);
     });
   }
 
@@ -84,18 +87,18 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private moveToEnemy(): void {
-    this.player.sprite.depth++;
-    this.player.changeRunAnimation();
-    const destinationX = this.enemy.x;
+    this.player.changeRunAnimation(this.speedMultiplier);
+    const destinationX = this.enemy.x + this.enemy.width * 2;
     const tweenConfig: Phaser.Types.Tweens.TweenBuilderConfig = {
       targets: this.player.sprite,
       x: destinationX,
       y: this.enemy.y,
       duration: 500 / this.speedMultiplier,
       onComplete: () => {
-        this.player.changeIdleAnimation();
-        this.time.delayedCall(1000 / this.speedMultiplier, () => {
-          this.player.changeRunAnimation();
+        const duration = this.player.changeAttackMeleeAnimation(this.speedMultiplier);
+        this.player.sprite.setDepth(2);
+        this.time.delayedCall(duration / this.speedMultiplier, () => {
+          this.player.changeRunAnimation(this.speedMultiplier);
           this.player.sprite.setFlipX(true);
           this.playerReturnToStartPosition();
         });
@@ -113,7 +116,7 @@ export class BattleScene extends Phaser.Scene {
       onComplete: () => {
         this.player.sprite.depth--;
         this.player.sprite.setFlipX(false);
-        this.player.changeIdleAnimation();
+        this.player.changeIdleAnimation(this.speedMultiplier);
       },
     };
     this.tweens.add(tweenConfig);

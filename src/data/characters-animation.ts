@@ -1,4 +1,4 @@
-import { aokijiIdle, aokijiRun, pirateIdle } from './asset-keys';
+import { aokijiAttackMelee, aokijiIdle, aokijiRun, pirateIdle } from './asset-keys';
 import { ICharacterAnimation } from '../interface/ICharacterAnimation';
 
 export const characterAokiji: ICharacterAnimation = {
@@ -30,6 +30,23 @@ export const characterAokiji: ICharacterAnimation = {
     frameRate: 10,
     frameRateStart: 10,
     repeat: -1,
+  },
+  attackMelee: {
+    key: aokijiAttackMelee,
+    frames: [
+      { key: aokijiAttackMelee, frame: '1.png' },
+      { key: aokijiAttackMelee, frame: '2.png' },
+      { key: aokijiAttackMelee, frame: '3.png' },
+      { key: aokijiAttackMelee, frame: '4.png' },
+      { key: aokijiAttackMelee, frame: '5.png' },
+      { key: aokijiAttackMelee, frame: '6.png' },
+      { key: aokijiAttackMelee, frame: '7.png' },
+      { key: aokijiAttackMelee, frame: '8.png' },
+      { key: aokijiAttackMelee, frame: '9.png' },
+      { key: aokijiAttackMelee, frame: '10.png' },
+    ],
+    frameRate: 10,
+    frameRateStart: 10,
   },
 };
 
