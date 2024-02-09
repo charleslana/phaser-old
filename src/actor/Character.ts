@@ -50,6 +50,22 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
     return this.sprite.anims.currentAnim.duration;
   }
 
+  public blinkSprite(speed: number): void {
+    const tween = this.scene.tweens.add({
+      targets: this.sprite,
+      alpha: 0,
+      duration: 100,
+      yoyo: true,
+      repeat: -1,
+      onYoyo: () => {
+        this.scene.time.delayedCall(500 / speed, () => {
+          tween.stop();
+          this.sprite.setAlpha(1);
+        });
+      },
+    });
+  }
+
   private setupSprite(isFlip = false): void {
     this.sprite.setCollideWorldBounds(true);
     this.sprite.setScale(this.characterAnimation.scaleX);

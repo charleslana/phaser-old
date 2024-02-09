@@ -12,7 +12,7 @@ export class BattleScene extends Phaser.Scene {
   private enemies: Character[] = [];
   private player: Character;
   private enemy: Character;
-  private speedMultiplier = 1;
+  private speed = 1;
 
   preload(): void {
     this.loadPlayer();
@@ -44,13 +44,13 @@ export class BattleScene extends Phaser.Scene {
       this.scene.start(homeSceneKey);
     });
     this.input.keyboard.on('keydown-ONE', () => {
-      this.player.changeIdleAnimation(this.speedMultiplier);
+      this.player.changeIdleAnimation(this.speed);
     });
     this.input.keyboard.on('keydown-TWO', () => {
-      this.player.changeRunAnimation(this.speedMultiplier);
+      this.player.changeRunAnimation(this.speed);
     });
     this.input.keyboard.on('keydown-THREE', () => {
-      this.player.changeAttackMeleeAnimation(this.speedMultiplier);
+      this.player.changeAttackMeleeAnimation(this.speed);
     });
   }
 
@@ -87,18 +87,19 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private moveToEnemy(): void {
-    this.player.changeRunAnimation(this.speedMultiplier);
+    this.player.changeRunAnimation(this.speed);
     const destinationX = this.enemy.x + this.enemy.width * 2;
     const tweenConfig: Phaser.Types.Tweens.TweenBuilderConfig = {
       targets: this.player.sprite,
       x: destinationX,
       y: this.enemy.y,
-      duration: 500 / this.speedMultiplier,
+      duration: 500 / this.speed,
       onComplete: () => {
-        const duration = this.player.changeAttackMeleeAnimation(this.speedMultiplier);
+        const duration = this.player.changeAttackMeleeAnimation(this.speed);
         this.player.sprite.setDepth(2);
-        this.time.delayedCall(duration / this.speedMultiplier, () => {
-          this.player.changeRunAnimation(this.speedMultiplier);
+        this.time.delayedCall(duration / this.speed, () => {
+          this.enemy.blinkSprite(this.speed);
+          this.player.changeRunAnimation(this.speed);
           this.player.sprite.setFlipX(true);
           this.playerReturnToStartPosition();
         });
@@ -112,11 +113,11 @@ export class BattleScene extends Phaser.Scene {
       targets: this.player.sprite,
       x: this.player.x,
       y: this.player.y,
-      duration: 500 / this.speedMultiplier,
+      duration: 500 / this.speed,
       onComplete: () => {
         this.player.sprite.depth--;
         this.player.sprite.setFlipX(false);
-        this.player.changeIdleAnimation(this.speedMultiplier);
+        this.player.changeIdleAnimation(this.speed);
       },
     };
     this.tweens.add(tweenConfig);
@@ -130,7 +131,7 @@ export class BattleScene extends Phaser.Scene {
     const button = this.add.rectangle(buttonX, buttonY, buttonWidth, buttonHeight, 0x8b4513);
     button.setOrigin(0.5);
     button.setDepth(2);
-    const buttonText = this.add.text(0, 0, `${this.speedMultiplier}x`, {
+    const buttonText = this.add.text(0, 0, `${this.speed}x`, {
       fontFamily: 'Arial',
       fontSize: '16px',
       color: '#ffffff',
@@ -145,13 +146,13 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private changeSpeedMultiplier(buttonText: Phaser.GameObjects.Text): void {
-    this.speedMultiplier += 0.5;
-    if (this.speedMultiplier > 2) {
-      this.speedMultiplier = 1;
+    this.speed += 0.5;
+    if (this.speed > 2) {
+      this.speed = 1;
     }
-    buttonText.text = `${this.speedMultiplier}x`;
-    this.player.updateAnimationSpeed(this.speedMultiplier);
-    this.enemy.updateAnimationSpeed(this.speedMultiplier);
+    buttonText.text = `${this.speed}x`;
+    this.player.updateAnimationSpeed(this.speed);
+    this.enemy.updateAnimationSpeed(this.speed);
   }
 
   private createSlots(): void {
